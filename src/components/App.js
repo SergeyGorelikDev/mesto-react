@@ -6,7 +6,7 @@ import Footer from './Footer';
 import Main from './Main';
 import React, { useState, useEffect } from 'react';
 
-const editProfile =
+const editInfo =
   <>
     <label className="popup__field">
       <input type="text" placeholder="Имя" className="popup__input popup__input_type_name" name="name" minLength="2" maxLength="40" id="name-input" required></input>
@@ -75,7 +75,7 @@ function App() {
       <Header />
       <main className="content">
         <Main onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onEditAvatar={handleEditAvatarClick} onDeleteImage={handleConfirmClick} onCardClick={handleClick} />
-        <PopupWithForm name="edit-profile" title="Редактировать профиль" buttonCaption='Cохранить' children={editProfile} isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} />
+        <PopupWithForm name="edit-profile" title="Редактировать профиль" buttonCaption='Cохранить' children={editInfo} isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} />
         <PopupWithForm name="popup_confirm" title="Вы уверены" buttonCaption='Да' isOpen={isConfirmPopupOpen} onClose={closeAllPopups} />
         <PopupWithForm name="add-photo" title="Новое место" buttonCaption='Cохранить' children={addPhoto} isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} />
         <PopupWithForm name="update-avatar" title="Обновить аватар" buttonCaption='Cохранить' children={updateAvatar} isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} />
