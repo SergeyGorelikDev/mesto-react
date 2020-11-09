@@ -1,11 +1,11 @@
-  class Api {
+class Api {
     getInitialCards() {
         return fetch('https://mesto.nomoreparties.co/v1/cohort-16/cards', {
-                headers: {
-                    authorization: '5e28b23d-e13c-4018-b0b3-86a78e78d1a4',
-                    'Content-Type': 'application/json'
-                }
-            })
+            headers: {
+                authorization: '5e28b23d-e13c-4018-b0b3-86a78e78d1a4',
+                'Content-Type': 'application/json'
+            }
+        })
             .then(res => {
                 if (res.ok) {
                     return res.json();
@@ -16,11 +16,11 @@
 
     getInformation() {
         return fetch('https://mesto.nomoreparties.co/v1/cohort-16/users/me', {
-                headers: {
-                    authorization: '5e28b23d-e13c-4018-b0b3-86a78e78d1a4',
-                    'Content-Type': 'application/json'
-                }
-            })
+            headers: {
+                authorization: '5e28b23d-e13c-4018-b0b3-86a78e78d1a4',
+                'Content-Type': 'application/json'
+            }
+        })
             .then(res => {
                 if (res.ok) {
                     return res.json();
@@ -103,10 +103,10 @@
             }
         });
     }
-  
+
 }
 
- const api = new Api({
+const api = new Api({
     baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-16/users/me',
     headers: {
         authorization: '5e28b23d-e13c-4018-b0b3-86a78e78d1a4',
