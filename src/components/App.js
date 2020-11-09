@@ -6,37 +6,34 @@ import React, { useState, useEffect } from 'react';
 
 function App() {
   const [selectedCard, handleCardClick] = useState([]);
-  let isEditAvatarPopupOpen = false;
-  let isEditProfilePopupOpen = false;
-  let isAddPlacePopupOpen = false;
+  const [isEditAvatarPopupOpen, editAvatar] = useState(false);
+  const [isEditProfilePopupOpen, editProfile] = useState(false);
+  const [isAddPlacePopupOpen, addPlace] = useState(false);
   
   function handleEditAvatarClick() {
-    isEditAvatarPopupOpen = true;
-    const popupAvatar = document.querySelector('.popup_update-avatar');
-    popupAvatar.classList.add('popup_opened');
+    editAvatar(true);
   }
+
   function handleEditProfileClick() {
-    isEditProfilePopupOpen = true;
-    const popupProfile = document.querySelector('.popup_edit-profile');
-    popupProfile.classList.add('popup_opened');
+    editProfile(true);
   }
   function handleAddPlaceClick() {
-    isAddPlacePopupOpen = true;
-    const popupPlace = document.querySelector('.popup_add-photo');
-    popupPlace.classList.add('popup_opened');
+    addPlace(true);
   }
   function handleClick(card) {
     handleCardClick(card);
   }
 
   function closeAllPopups() {
-    document.querySelector('.popup_opened').classList.remove('popup_opened');
+    editAvatar(false);
+    editProfile(false);
+    addPlace(false);
     handleCardClick([]);
   }
   return (
     <div className="App">
      <Header />
-     <Main onEditProfile = {handleEditProfileClick}  onAddPlace = {handleAddPlaceClick} onEditAvatar = {handleEditAvatarClick} isEditProfilePopupOpen = {isEditAvatarPopupOpen} isAddPlacePopupOpen = {isAddPlacePopupOpen} isEditAvatarPopupOpen = {isEditAvatarPopupOpen} onClose = {closeAllPopups} onCardClick = {handleClick} selectedCard = {selectedCard}/>
+     <Main onEditProfile = {handleEditProfileClick}  onAddPlace = {handleAddPlaceClick} onEditAvatar = {handleEditAvatarClick} isEditProfilePopupOpen = {isEditProfilePopupOpen} isAddPlacePopupOpen = {isAddPlacePopupOpen} isEditAvatarPopupOpen = {isEditAvatarPopupOpen} onClose = {closeAllPopups} onCardClick = {handleClick} selectedCard = {selectedCard}/>
      <Footer />
     </div>
   );
