@@ -44,10 +44,10 @@ function Main(props) {
                 <button className="profile__add-button" type="button" aria-label="Добавить" onClick={props.onAddPlace}></button>
             </section>
             <section className="elements">
-                {cards.map((item, key) => {
+                {cards.map((item) => {
                     return (
-                        <article className="element" key={key}>
-                            <Card cards={item} onCardClick={props.onCardClick} isOpen={props.onDeleteImage} />
+                        <article className="element" key={item._id}>
+                            <Card card={item} onCardClick={props.onCardClick} isOpen={props.onDeleteImage} />
                         </article>
                     );
                 })}
