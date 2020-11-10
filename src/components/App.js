@@ -30,12 +30,9 @@ function App() {
     setIsConfirmPopupOpen(true);
   }
 
-  function handleImageClick() {
-    setIsImagePopupOpen(true);
-  }
-
   function handleSelectedCard(card) {
     setSelectedCard(card);
+    setIsImagePopupOpen(true);
   }
 
   function closeAllPopups() {
