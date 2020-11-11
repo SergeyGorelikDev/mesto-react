@@ -46,9 +46,7 @@ function Main(props) {
             <section className="elements">
                 {cards.map((item) => {
                     return (
-                        <article className="element" key={item._id}>
-                            <Card card={item} onCardClick={props.onCardClick} isOpen={props.onDeleteImage} />
-                        </article>
+                        <Card card={item} onCardClick={props.onCardClick} isOpen={props.onDeleteImage} />
                     );
                 })}
             </section>

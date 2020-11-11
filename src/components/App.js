@@ -41,7 +41,6 @@ function App() {
     setIsAddPlacePopupOpen(false);
     setIsConfirmPopupOpen(false);
     setIsImagePopupOpen(false);
-    setSelectedCard([]);
   }
   return (
     <>
