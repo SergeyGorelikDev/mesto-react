@@ -7,4 +7,4 @@
 * Flexbox;
 * Grid Layout.
 
-[Ссылка на проект](https://sergeygorelikdev.github.io/mesto/index.html)
+[Ссылка на проект](https://sergeygorelikdev.github.io/mesto-react/index.html)
