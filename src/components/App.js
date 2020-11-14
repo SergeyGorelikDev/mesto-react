@@ -1,18 +1,35 @@
 import '../index.css';
+import api from './utils/Api.js';
 import PopupWithForm from './PopupWithForm';
 import ImagePopup from './ImagePopup';
 import Header from './Header';
 import Footer from './Footer';
 import Main from './Main';
 import React, { useState, useEffect } from 'react';
+import { CurrentUserContext } from './contexts/CurrentUserContext.js';
 
 function App() {
+  const [currentUser, setCurrentUser] = useState({});
   const [selectedCard, setSelectedCard] = useState({});
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isConfirmPopupOpen, setIsConfirmPopupOpen] = useState(false);
   const [isImagePopupOpen, setIsImagePopupOpen] = useState(false);
+
+  function getInformation() {
+    api.getUserInfo()
+      .then((result) => {
+        setCurrentUser(result);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  useEffect(() => {
+    getInformation({});
+  }, []);
 
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true);
@@ -46,7 +63,9 @@ function App() {
     <>
       <Header />
       <main className="content">
-        <Main onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onEditAvatar={handleEditAvatarClick} onDeleteImage={handleConfirmClick} onCardClick={handleSelectedCard} />
+        <CurrentUserContext.Provider value={currentUser}>
+          <Main onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onEditAvatar={handleEditAvatarClick} onDeleteImage={handleConfirmClick} onCardClick={handleSelectedCard} />
+        </CurrentUserContext.Provider>
         <PopupWithForm name="edit-profile" title="Редактировать профиль" buttonCaption='Cохранить' isOpen={isEditProfilePopupOpen} onClose={closeAllPopups}>
           <>
             <label className="popup__field">
@@ -78,7 +97,7 @@ function App() {
             <span className="popup__input-error" id="link-input-error"></span>
           </label>
         </PopupWithForm>
-        <ImagePopup onClose={closeAllPopups} card={selectedCard}  isOpen={isImagePopupOpen}/>
+        <ImagePopup onClose={closeAllPopups} card={selectedCard} isOpen={isImagePopupOpen} />
       </main>
       <Footer />
     </>
