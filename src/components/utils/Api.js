@@ -29,31 +29,43 @@ class Api {
             });
     }
 
-    updateInformation({ name, about }) {
+    setUserInfo({ name, about }) {
         return fetch('https://mesto.nomoreparties.co/v1/cohort-16/users/me', {
-            method: 'PATCH',
-            headers: {
-                authorization: '5e28b23d-e13c-4018-b0b3-86a78e78d1a4',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                name: name,
-                about: about
+                method: 'PATCH',
+                headers: {
+                    authorization: '5e28b23d-e13c-4018-b0b3-86a78e78d1a4',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    name: name,
+                    about: about
+                })
             })
-        });
+            .then(res => {
+                if (res.ok) {
+                    return res.json();
+                }
+                return Promise.reject(`Ошибка: ${res.status}`);
+            });
     }
 
-    updateAvatar({ avatar }) {
+    setUserAvatar({ avatar }) {
         return fetch('https://mesto.nomoreparties.co/v1/cohort-16/users/me/avatar', {
-            method: 'PATCH',
-            headers: {
-                authorization: '5e28b23d-e13c-4018-b0b3-86a78e78d1a4',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                avatar: avatar
+                method: 'PATCH',
+                headers: {
+                    authorization: '5e28b23d-e13c-4018-b0b3-86a78e78d1a4',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    avatar: avatar
+                })
             })
-        });
+            .then(res => {
+                if (res.ok) {
+                    return res.json();
+                }
+                return Promise.reject(`Ошибка: ${res.status}`);
+            });
     }
 
     postPhoto({ name, link }) {
