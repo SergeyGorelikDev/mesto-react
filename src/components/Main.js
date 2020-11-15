@@ -1,40 +1,9 @@
-import api from './utils/Api.js';
 import Card from './Card.js';
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { CurrentUserContext } from './contexts/CurrentUserContext.js';
 
 function Main(props) {
     const CurrentUser = useContext(CurrentUserContext);
-    const [cards, getCards] = useState([]);
-
-    function getAllCards() {
-        api.getInitialCards()
-            .then((result) => {
-                getCards(result);
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-    }
-
-    function handleCardLike(card) {
-        const isLiked = card.likes.some(i => i._id === CurrentUser._id);
-        api.changeLikeCardStatus(card._id, !isLiked).then((newCard,isLiked) => {
-            const newCards = cards.map((c) => c._id === card._id ? newCard : c);
-          getCards(newCards);
-        });
-    } 
-
-    function handleCardDelete(card) {
-        api.deletePhoto(card._id).then((newCard) => {
-          const newCards = cards.filter((c) => {return c._id !== card._id} );
-          getCards(newCards);
-        });
-    } 
-
-    useEffect(() => {
-        getAllCards({});
-    }, []);
 
     return (
         <>
@@ -51,10 +20,10 @@ function Main(props) {
                 <button className="profile__add-button" type="button" aria-label="Добавить" onClick={props.onAddPlace}></button>
             </section>
             <section className="elements">
-                {cards.map((item) => {
+                {props.cards.map((item) => {
                     return (
                         <CurrentUserContext.Provider value={CurrentUser} key={item._id}>
-                            <Card card={item} onCardClick={props.onCardClick} isOpen={props.onDeleteImage} onCardLike={handleCardLike} onCardDelete={handleCardDelete}/>
+                            <Card card={item} onCardClick={props.onCardClick} isOpen={props.onDeleteImage} onCardLike={props.onCardLike} onCardDelete={props.onCardDelete}/>
                         </CurrentUserContext.Provider>
                     );
                 })}
