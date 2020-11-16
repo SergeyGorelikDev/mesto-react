@@ -29,6 +29,10 @@ class Api {
             .then(this._getResponseData);
     }
 
+    getAllNeededData() {
+        return Promise.all([this.getUserInfo(), this.getCardList()]);
+    }
+
     setUserInfo({ name, about }) {
         return fetch(`${this.baseUrl}/users/me`, {
                 method: 'PATCH',
