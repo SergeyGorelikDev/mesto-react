@@ -1,6 +1,7 @@
 class Api {
-    constructor() {
-        this.baseUrl = 'https://mesto.nomoreparties.co/v1/cohort-16'
+    constructor({ baseUrl, headers }) {
+        this._baseUrl = baseUrl;
+        this._headers = headers;
     }
     _getResponseData(res) {
         if (res.ok) {
@@ -10,21 +11,15 @@ class Api {
     }
 
     getCardList() {
-        return fetch(`${this.baseUrl}/cards`, {
-                headers: {
-                    authorization: '5e28b23d-e13c-4018-b0b3-86a78e78d1a4',
-                    'Content-Type': 'application/json'
-                }
+        return fetch(`${this._baseUrl}/cards`, {
+                headers: this._headers
             })
             .then(this._getResponseData);
     }
 
     getUserInfo() {
-        return fetch(`${this.baseUrl}/users/me`, {
-                headers: {
-                    authorization: '5e28b23d-e13c-4018-b0b3-86a78e78d1a4',
-                    'Content-Type': 'application/json'
-                }
+        return fetch(`${this._baseUrl}/users/me`, {
+                headers: this._headers
             })
             .then(this._getResponseData);
     }
@@ -34,12 +29,9 @@ class Api {
     }
 
     setUserInfo({ name, about }) {
-        return fetch(`${this.baseUrl}/users/me`, {
+        return fetch(`${this._baseUrl}/users/me`, {
                 method: 'PATCH',
-                headers: {
-                    authorization: '5e28b23d-e13c-4018-b0b3-86a78e78d1a4',
-                    'Content-Type': 'application/json'
-                },
+                headers: this._headers,
                 body: JSON.stringify({
                     name: name,
                     about: about
@@ -49,12 +41,9 @@ class Api {
     }
 
     setUserAvatar({ avatar }) {
-        return fetch(`${this.baseUrl}/users/me/avatar`, {
+        return fetch(`${this._baseUrl}/users/me/avatar`, {
                 method: 'PATCH',
-                headers: {
-                    authorization: '5e28b23d-e13c-4018-b0b3-86a78e78d1a4',
-                    'Content-Type': 'application/json'
-                },
+                headers: this._headers,
                 body: JSON.stringify({
                     avatar: avatar
                 })
@@ -63,12 +52,9 @@ class Api {
     }
 
     postPhoto({ name, link }) {
-        return fetch(`${this.baseUrl}/cards`, {
+        return fetch(`${this._baseUrl}/cards`, {
                 method: 'POST',
-                headers: {
-                    authorization: '5e28b23d-e13c-4018-b0b3-86a78e78d1a4',
-                    'Content-Type': 'application/json'
-                },
+                headers: this._headers,
                 body: JSON.stringify({
                     name: name,
                     link: link
@@ -78,28 +64,27 @@ class Api {
     }
 
     deletePhoto(id) {
-        return fetch(`${this.baseUrl}/cards/${id}`, {
+        return fetch(`${this._baseUrl}/cards/${id}`, {
             method: 'DELETE',
-            headers: {
-                authorization: '5e28b23d-e13c-4018-b0b3-86a78e78d1a4',
-                'Content-Type': 'application/json'
-            }
+            headers: this._headers
         });
     }
 
     changeLikeCardStatus(id, isLiked) {
-        return fetch(`${this.baseUrl}/cards/likes/${id}`, {
+        return fetch(`${this._baseUrl}/cards/likes/${id}`, {
                 method: isLiked ? 'PUT' : 'DELETE',
-                headers: {
-                    authorization: '5e28b23d-e13c-4018-b0b3-86a78e78d1a4',
-                    'Content-Type': 'application/json'
-                }
+                headers: this._headers
             })
             .then(this._getResponseData);
     }
 
 }
 
-const api = new Api();
-
+const api = new Api({
+    baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-16',
+    headers: {
+        authorization: '5e28b23d-e13c-4018-b0b3-86a78e78d1a4',
+        'Content-Type': 'application/json'
+    }
+});
 export default api;

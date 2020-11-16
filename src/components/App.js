@@ -20,7 +20,7 @@ function App() {
   const [isConfirmPopupOpen, setIsConfirmPopupOpen] = useState(false);
   const [isImagePopupOpen, setIsImagePopupOpen] = useState(false);
   const [cards, getCards] = useState([]);
-  
+
   function getAllInformation() {
     api.getAllNeededData()
       .then((result) => {
@@ -90,7 +90,7 @@ function App() {
     setIsAddPlacePopupOpen(false);
     setIsConfirmPopupOpen(false);
     setIsImagePopupOpen(false);
-    setSelectedCard([]);
+    setSelectedCard({});
   }
 
   function handleUpdateUser(paramInf) {
