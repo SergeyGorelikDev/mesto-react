@@ -12,7 +12,7 @@ import React, { useState, useEffect } from 'react';
 import { CurrentUserContext } from './contexts/CurrentUserContext.js';
 
 function App() {
-  const [CurrentUser, setCurrentUser] = useState({});
+  const [currentUser, setCurrentUser] = useState({});
   const [selectedCard, setSelectedCard] = useState({});
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -32,17 +32,25 @@ function App() {
   }
 
   function handleCardLike(card) {
-      const isLiked = card.likes.some(i => i._id === CurrentUser._id);
-      api.changeLikeCardStatus(card._id, !isLiked).then((newCard,isLiked) => {
+      const isLiked = card.likes.some(i => i._id === currentUser._id);
+      api.changeLikeCardStatus(card._id, !isLiked)
+      .then((newCard,isLiked) => {
           const newCards = cards.map((c) => c._id === card._id ? newCard : c);
         getCards(newCards);
+      })
+      .catch((err) => {
+        console.log(err);
       });
   } 
 
   function handleCardDelete(card) {
-      api.deletePhoto(card._id).then((newCard) => {
+      api.deletePhoto(card._id)
+      .then((newCard) => {
         const newCards = cards.filter((c) => {return c._id !== card._id} );
         getCards(newCards);
+      })
+      .catch((err) => {
+        console.log(err);
       });
   } 
 
@@ -91,6 +99,7 @@ function App() {
     setIsAddPlacePopupOpen(false);
     setIsConfirmPopupOpen(false);
     setIsImagePopupOpen(false);
+    setSelectedCard([]);
   }
 
   function handleUpdateUser(paramInf) {
@@ -127,7 +136,7 @@ function App() {
   }
 
   return (
-    <CurrentUserContext.Provider value={CurrentUser}>
+    <CurrentUserContext.Provider value={currentUser}>
       <Header />
       <main className="content">
         <Main onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onEditAvatar={handleEditAvatarClick} onDeleteImage={handleConfirmClick} onCardClick={handleSelectedCard}  cards={cards} onCardLike={handleCardLike} onCardDelete={handleCardDelete}/>

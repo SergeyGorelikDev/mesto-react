@@ -2,9 +2,10 @@ import React, { useContext } from 'react';
 import { CurrentUserContext } from './contexts/CurrentUserContext.js';
 
 function Card(props) {
+    const {card, onCardClick, isOpen, onCardLike, onCardDelete} = props;
     const CurrentUser = useContext(CurrentUserContext);
-    const isOwn = props.card.owner._id === CurrentUser._id;
-    const isLiked = props.card.likes.some(i => i._id === CurrentUser._id);
+    const isOwn = card.owner._id === CurrentUser._id;
+    const isLiked = card.likes.some(i => i._id === CurrentUser._id);
     const cardDeleteButtonClassName = (
         `element__delete ${isOwn ? 'element__delete_visible' : 'element__delete_hidden'}`
     );
@@ -14,25 +15,25 @@ function Card(props) {
     );
 
     function handleClick() {
-        props.onCardClick(props.card);
+        onCardClick(card);
     }
 
     function handleLikeClick() {
-        props.onCardLike(props.card);
+        onCardLike(card);
     }
 
     function handleDeleteClick() {
-        props.onCardDelete(props.card);
+        onCardDelete(card);
     }
 
     return (
-        <article className="element" key={props.card._id}>
+        <article className="element" key={card._id}>
             <button className={cardDeleteButtonClassName} type="button" aria-label="Удалить" onClick={handleDeleteClick}></button>
-            <img className="element__photo" src={props.card.link} alt="Фото" onClick={handleClick}></img>
+            <img className="element__photo" src={card.link} alt="Фото" onClick={handleClick}></img>
             <div className="element__wrap">
-                <h2 className="element__title">{props.card.name}</h2>
+                <h2 className="element__title">{card.name}</h2>
                 <button className={cardLikeButtonClassName} type="button" aria-label="Сердечко" onClick= {handleLikeClick}></button>
-                <p className="element__amount">{props.card.likes.length}</p>
+                <p className="element__amount">{card.likes.length}</p>
             </div>
         </article>
     );
